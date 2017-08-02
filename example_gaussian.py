@@ -19,7 +19,7 @@ y = gaussianMix(x, np.array([0.5, 0.5]), np.array([1, 2]), np.array([0, 1]))
 y /= simps(y, x)  # Generate data
 
 n_component = 6
-a = GaussianFittingN(bounds=((0,1),(0,10), (0,10)))
+a = GaussianFittingN(bounds=((0,1),(0,10), (0,10)))  # lower-upper bounds of a, s, m
 a.fit(x, y, n_component)  # max to 5 gaussians with a known component. popt_res gives the signatures.
 
 models = estimating(a)  # Currently known is not supported
