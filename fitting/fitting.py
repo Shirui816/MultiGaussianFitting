@@ -49,4 +49,4 @@ class FittingLsq(metaclass=ABCMeta):
             p0 = self._set_p0(i, self.popt_res[i])
             bounds = self._set_bound(i, self.popt_res[i])
             self.popt[i], self.pcov[i] = curve_fit(func, x, y, p0=p0, bounds=bounds)
-        return self.popt_res, self.popt, self.pcov
+        return self
