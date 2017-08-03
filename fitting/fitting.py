@@ -9,7 +9,6 @@ from scipy.optimize import curve_fit
 from typing import Callable, Any
 import inspect
 from scipy.integrate import simps
-import numpy as np
 
 
 class FittingLsq(metaclass=ABCMeta):
