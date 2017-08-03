@@ -8,6 +8,8 @@ from abc import ABCMeta, abstractmethod
 from scipy.optimize import curve_fit
 from typing import Callable, Any
 import inspect
+from scipy.integrate import simps
+import numpy as np
 
 
 class FittingLsq(metaclass=ABCMeta):
@@ -17,7 +19,9 @@ class FittingLsq(metaclass=ABCMeta):
         self.popt_res = {}
         self.popt = {}
         self.pcov = {}
+        self.funcs = {}
         self._check_parameter()
+        self.normal_factor = {}
 
     def _check_parameter(self):
         if not isinstance(self.bounds, tuple):
@@ -41,12 +45,17 @@ class FittingLsq(metaclass=ABCMeta):
     def _get_params(self, x, y):
         pass
 
+    def n_parameters(self, i):
+        return len(self.popt_res[i])
+
     def fit(self, x, y, n):
         self._get_params(x, y)
         for i in range(1, n + 1):
             func = self._set_func(i)
+            self.funcs[i] = func
             self.popt_res[i] = list(inspect.signature(func).parameters.keys())
             p0 = self._set_p0(i, self.popt_res[i])
             bounds = self._set_bound(i, self.popt_res[i])
             self.popt[i], self.pcov[i] = curve_fit(func, x, y, p0=p0, bounds=bounds)
+            self.normal_factor[i] = 1/simps(func(x, *self.popt[i]), x)
         return self
