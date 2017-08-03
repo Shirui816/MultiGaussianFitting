@@ -3,3 +3,4 @@
 # Author: shirui <shirui816@gmail.com>
 
 from .gaussianFitting import GaussianFittingN
+from .cauchyFitting import CauchyFittingN
