@@ -10,7 +10,7 @@ import warnings
 
 
 def _n_gaussian(n):
-    _signature = []
+    _signature = [ins.Parameter('X', kind=ins.Parameter.POSITIONAL_OR_KEYWORD)]
     for i in range(n):
         _signature.append(ins.Parameter('a%s' % (i + 1),
                                         kind=ins.Parameter.POSITIONAL_OR_KEYWORD))
